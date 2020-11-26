@@ -22,9 +22,9 @@ function cargarPalabras(){
   $coleccionPalabras[4]= array("palabra"=> "extraterrestre", "pista" => "asociado a la vida fuera de la tierra", "puntosPalabra"=> 10  );
   $coleccionPalabras[5]= array("palabra"=> "agua", "pista" => "imprescindible  para poder vivir", "puntosPalabra"=> 7  );
   $coleccionPalabras[6]= array("palabra"=> "vodka", "pista" => "Bebida blanca", "puntosPalabra"=> 8  );
-  $coleccionPalabras[7]= array("palabra"=> "Socrates", "pista" => "Nombre de filosofo griego", "puntosPalabra"=> 9  );
+  $coleccionPalabras[7]= array("palabra"=> "socrates", "pista" => "Nombre de filosofo griego", "puntosPalabra"=> 9  );
   $coleccionPalabras[8]= array("palabra"=> "fisica", "pista" => "ciencia que estudia la energía, la materia, el tiempo y el espacio", "puntosPalabra"=> 7  );
-  $coleccionPalabras[9]= array("palabra"=> "Capitalismo", "pista" => "Sistema economico", "puntosPalabra"=> 10  );
+  $coleccionPalabras[9]= array("palabra"=> "capitalismo", "pista" => "Sistema economico", "puntosPalabra"=> 10  );
   
 return $coleccionPalabras;
 }
@@ -36,7 +36,7 @@ return $coleccionPalabras;
 function cargarJuegos(){
 	$coleccionJuegos = array();
 	$coleccionJuegos[0] = array("puntos"=> 0, "indicePalabra" => 1);
-	$coleccionJuegos[1] = array("puntos"=> 10,"indicePalabra" => 2);
+	$coleccionJuegos[1] = array("puntos"=> 6,"indicePalabra" => 2);
     $coleccionJuegos[2] = array("puntos"=> 0, "indicePalabra" => 1);
     $coleccionJuegos[3] = array("puntos"=> 8, "indicePalabra" => 0);
     $coleccionJuegos[4] = array("puntos"=> 9, "indicePalbra" => 3 );
@@ -147,6 +147,7 @@ $cantPalabras = count($coleccionPalabras) ;
 do {
     echo "Ingrese la palabra: " ;
     $palabra = trim(fgets(STDIN)) ; 	
+    $palabra = strtolower($palabra) ;
 
     $existe = existePalabra($coleccionPalabras,$palabra) ;
 
@@ -335,7 +336,7 @@ return $puntaje;
 * @return array coleccion de juegos modificada
 */
 function agregarJuego($coleccionJuegos,$puntos,$indicePalabra){
-$coleccionJuegos[] = array("puntos"=> $puntos, "indicePalabra" => $indicePalabra);    
+    $coleccionJuegos[] = array("puntos"=> $puntos, "indicePalabra" => $indicePalabra);    
 return $coleccionJuegos;
 }
 
@@ -401,7 +402,7 @@ function primerJuegoConMasPuntaje($coleccionJuegos,$puntosUsuario) {
     $juegoEncontrado = false ; //condicion de corte cuando se vuelve true
     $i = 0 ;
     $n = count($coleccionJuegos) ;
-    while ($i < $n &&  $juegoEncontrado == false ){
+    while ($i < $n &&  !$juegoEncontrado ){ //recorrido parcial
         if ($puntosUsuario < $coleccionJuegos[$i]["puntos"]){
             $indicePrimerJuego = $i ;    
             $juegoEncontrado = true ;
@@ -420,11 +421,10 @@ function primerJuegoConMasPuntaje($coleccionJuegos,$puntosUsuario) {
 function mostrarPalabrasOrdenadas ($coleccionPalabras){
 //$i INT
 //$palabrasOrdenadas ARRAY
-$palabrasOrdenadas = $coleccionPalabras;
-sort($palabrasOrdenadas);// sort para ordenar el arreglo
-echo "\n Palabras Ordenadas por Orden Alfabetico\n";
-print_r($palabrasOrdenadas); //print_r nos muestra los elementos del arreglo
-
+    $palabrasOrdenadas = $coleccionPalabras;
+    sort($palabrasOrdenadas);// sort para ordenar el arreglo
+    echo "\n Palabras Ordenadas por Orden Alfabetico\n";
+    print_r($palabrasOrdenadas); //print_r nos muestra los elementos del arreglo
 }
 
 /**Dibuja al munieco dentro del juego
@@ -433,49 +433,49 @@ print_r($palabrasOrdenadas); //print_r nos muestra los elementos del arreglo
 function munieco ($cantIntentos){
 switch ($cantIntentos) {
 case 5:
-echo " ┌─────┐ \n";
-echo " │ O \n";
-echo " │ \n";
-echo " │ \n";
-echo " │ \n";
-echo " │ \n";
-echo " └───────── \n";
+    echo " ┌─────┐ \n";
+    echo " │ O \n";
+    echo " │ \n";
+    echo " │ \n";
+    echo " │ \n";
+    echo " │ \n";
+    echo " └───────── \n";
 break;
 case 4:
-echo " ┌─────┐ \n";
-echo " │ O \n";
-echo " │ ┼ \n";
-echo " │ \n";
-echo " │ \n";
-echo " │ \n";
-echo " └───────── \n";
+    echo " ┌─────┐ \n";
+    echo " │ O \n";
+    echo " │ ┼ \n";
+    echo " │ \n";
+    echo " │ \n";
+    echo " │ \n";
+    echo " └───────── \n";
 break;
 case 3:
-echo " ┌─────┐ \n";
-echo " │ O \n";
-echo " │ ┌┼ \n";
-echo " │ ┴ \n";
-echo " │ \n";
-echo " │ \n";
-echo " └───────── \n";
+    echo " ┌─────┐ \n";
+    echo " │ O \n";
+    echo " │ ┌┼ \n";
+    echo " │ ┴ \n";
+    echo " │ \n";
+    echo " │ \n";
+    echo " └───────── \n";
 break;
 case 2:
-echo " ┌─────┐ \n";
-echo " │ O \n";
-echo " │ ┌┼┘ \n";
-echo " │ ┌┴ \n";
-echo " │ \n";
-echo " │ \n";
-echo " └───────── \n";
+    echo " ┌─────┐ \n";
+    echo " │ O \n";
+    echo " │ ┌┼┘ \n";
+    echo " │ ┌┴ \n";
+    echo " │ \n";
+    echo " │ \n";
+    echo " └───────── \n";
 break;
 case 1:
-echo " ┌─────┐ \n";
-echo " │ O \n";
-echo " │ ┌┼┘ \n";
-echo " │ ┌┴ \n";
-echo " │ │ \n";
-echo " │ \n";
-echo " └───────── \n";
+    echo " ┌─────┐ \n";
+    echo " │ O \n";
+    echo " │ ┌┼┘ \n";
+    echo " │ ┌┴ \n";
+    echo " │ │ \n";
+    echo " │ \n";
+    echo " └───────── \n";
 break;
 }
 }
@@ -486,7 +486,7 @@ break;
 /******************************************/
 //$opcion, $min, $maximo, $indiceAleatorioPrincipal $jugarPrincipal,$indiceJuegoPrincipal, $puntosUsuarioPrincipal, $primerJuego INT
 //$coleccionJuegosPrincipal, $coleccionPalabrasPrincipal ARRAY
-echo "hola" ;
+//echo "hola" ;
 define("CANT_INTENTOS", 6); //cantidad de intentos que tendrá el jugador para adivinar la palabra.
 $coleccionPalabrasPrincipal=cargarPalabras();
 $coleccionJuegosPrincipal=cargarJuegos();
@@ -495,53 +495,53 @@ do{
 $opcion = seleccionarOpcion();
 switch ($opcion) {
 case 1: //Jugar con una palabra aleatoria
-$cantIntentos=CANT_INTENTOS;
-$min=0;
-$maximo=count($coleccionPalabrasPrincipal)-1;
-$indiceAleatorioPrincipal=indiceAleatorioEntre($min,$maximo);
-$jugarPrincipal=jugar($coleccionPalabrasPrincipal, $indiceAleatorioPrincipal, $cantIntentos);
-$coleccionJuegosPrincipal = agregarJuego($coleccionJuegosPrincipal,$jugarPrincipal,$indiceAleatorioPrincipal);
+    $cantIntentos=CANT_INTENTOS;
+    $min=0;
+    $maximo=count($coleccionPalabrasPrincipal)-1;
+    $indiceAleatorioPrincipal=indiceAleatorioEntre($min,$maximo);
+    $jugarPrincipal=jugar($coleccionPalabrasPrincipal, $indiceAleatorioPrincipal, $cantIntentos);
+    $coleccionJuegosPrincipal = agregarJuego($coleccionJuegosPrincipal,$jugarPrincipal,$indiceAleatorioPrincipal);
 
 break;
 case 2: //Jugar con una palabra elegida
-$cantIntentos=CANT_INTENTOS;
-$min=0;
-$maximo=count($coleccionPalabrasPrincipal)-1;
-$indiceJuegoPrincipal = solicitarIndiceEntre($min, $maximo);
-$jugarPrincipal=jugar($coleccionPalabrasPrincipal, $indiceJuegoPrincipal, $cantIntentos);
-$coleccionJuegosPrincipal = agregarJuego($coleccionJuegosPrincipal,$jugarPrincipal,$indiceJuegoPrincipal);
+    $cantIntentos=CANT_INTENTOS;
+    $min=0;
+    $maximo=count($coleccionPalabrasPrincipal)-1;
+    $indiceJuegoPrincipal = solicitarIndiceEntre($min, $maximo);
+    $jugarPrincipal=jugar($coleccionPalabrasPrincipal, $indiceJuegoPrincipal, $cantIntentos);
+    $coleccionJuegosPrincipal = agregarJuego($coleccionJuegosPrincipal,$jugarPrincipal,$indiceJuegoPrincipal);
 
 break;
 case 3: //Agregar una palabra al listado
-$coleccionPalabrasPrincipal=agregarPalabra($coleccionPalabrasPrincipal);
+    $coleccionPalabrasPrincipal=agregarPalabra($coleccionPalabrasPrincipal);
 break;
 case 4: //Mostrar la información completa de un número de juego
-$min=0;
-$maximo=count($coleccionJuegosPrincipal)-1;
-echo "Mostrar informacion de Juego";
-$indiceJuegoPrincipal= solicitarIndiceEntre($min,$maximo);
-mostrarJuego($coleccionJuegosPrincipal,$coleccionPalabrasPrincipal,$indiceJuegoPrincipal);
+    $min=0;
+    $maximo=count($coleccionJuegosPrincipal)-1;
+    echo "Mostrar informacion de Juego";
+    $indiceJuegoPrincipal= solicitarIndiceEntre($min,$maximo);
+    mostrarJuego($coleccionJuegosPrincipal,$coleccionPalabrasPrincipal,$indiceJuegoPrincipal);
 break;
 case 5: //Mostrar la información completa del primer juego con más puntaje
-echo "Primer Juego con mas Puntaje";
-$indiceJuegoPrincipal= juegoConMasPuntaje($coleccionJuegosPrincipal);
-mostrarJuego($coleccionJuegosPrincipal,$coleccionPalabrasPrincipal,$indiceJuegoPrincipal);
+    echo "Primer Juego con mas Puntaje";
+    $indiceJuegoPrincipal= juegoConMasPuntaje($coleccionJuegosPrincipal);
+    mostrarJuego($coleccionJuegosPrincipal,$coleccionPalabrasPrincipal,$indiceJuegoPrincipal);
 break;
 case 6: //Mostrar la información completa del primer juego que supere un puntaje indicado por el usuario
-echo "Ingrese un puntaje \n" ;
-$puntosUsuarioPrincipal = trim(fgets(STDIN)) ;
-$primerJuego = primerJuegoConMasPuntaje($coleccionJuegosPrincipal,$puntosUsuarioPrincipal);
-if ($primerJuego > -1){
-echo "el Juego con mas Puntaje que: ".$puntosUsuarioPrincipal."\n";
-mostrarJuego($coleccionJuegosPrincipal,$coleccionPalabrasPrincipal,$primerJuego);
-}else{
-echo "No existe un juego que tenga mas de".$puntosUsuarioPrincipal."\n";
-echo "Segun enunciado retorno ".$primerJuego."\n";
-}
+    echo "Ingrese un puntaje \n" ;
+    $puntosUsuarioPrincipal = trim(fgets(STDIN)) ;
+    $primerJuego = primerJuegoConMasPuntaje($coleccionJuegosPrincipal,$puntosUsuarioPrincipal);
+    if ($primerJuego > -1){
+        echo "el Juego con mas Puntaje que: ".$puntosUsuarioPrincipal."\n";
+        mostrarJuego($coleccionJuegosPrincipal,$coleccionPalabrasPrincipal,$primerJuego);
+    }else{
+        echo "No existe un juego que tenga mas de".$puntosUsuarioPrincipal."\n";
+        echo "Segun enunciado retorno ".$primerJuego."\n";
+    }
 
 break;
 case 7: //Mostrar la lista de palabras ordenada por orden alfabetico
-mostrarPalabrasOrdenadas($coleccionPalabrasPrincipal);
+    mostrarPalabrasOrdenadas($coleccionPalabrasPrincipal);
 break;
 }
 
